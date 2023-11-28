@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do-List</title>
+    <style>
+
+        html {
+            background-color: #E4E9FD;
+            background-image: -webkit-linear-gradient(65deg, #A683E3 50%, #E4E9FD 50%);
+            min-height: 1000px;
+            font-family: 'helvetica neue';
+          }
+          
+          h1 {
+            text-align: center;
+            color: purple;
+            padding: 10px;
+          }
+          
+          .box {
+            max-width: 400px;
+            padding: 30px 200px 50px 50px;
+            margin: 50px auto;
+            background: rgb(227, 162, 162);
+            border-radius: 5px;
+            box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+          }
+          
+          #heading {
+            background-color: #A683E3;
+            text-align: center;
+          }
+          
+          .item {
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            font-size: 25px;
+          }
+          
+          .item:last-child {
+            border-bottom: 0;
+          }
+          
+          input:checked+p {
+            text-decoration:line-through;
+            text-decoration-color: #392856;
+          }
+          
+          input[type="checkbox"] {
+            margin: 20px;
+          }
+          
+          p {
+            margin: 0;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: 200;
+            color: #00204a;
+          }
+          
+          form {
+            text-align: center;
+            margin-left: 20px;
+          }
+          
+          button {
+            min-height: 70px;
+            width: 120px;
+            border-color: transparent;
+            background-color: #A683E3;
+            color: #fff;
+            font-size: 30px;
+            padding-bottom: 6px;
+            border-width: 0;
+          }
+          
+          
+          input[type="text"] {
+            text-align: center;
+            height: 60px;
+            top: 10px;
+            border: none;
+            background: transparent;
+            font-size: 20px;
+            font-weight: 200;
+            width: 280px;
+          }
+          
+          input[type="text"]:focus {
+            outline: none;
+            box-shadow: inset 0 -3px 0 0 #A683E3;
+          }
+          
+          ::placeholder {
+            color: grey;
+            opacity: 1;
+          }
+          
+          footer {
+            color: white;
+            color: rgba(0, 0, 0, 0.5);
+            text-align: center;
+          }
+          
+    </style>
+</head>
+
+<body>
+    <div class="box" id="heading">
+        <h1>It's a <%= dayk %>
+        </h1>
+    </div>
+    <h1>To-do-list</h1>
+    <div class="box">
+
+        <% for(var i=0; i<newlist.length; i++){ %>
+        <div class="item">
+                <input type="checkbox">
+                <p class="item">
+                    <%= newlist[i].item %>
+                </p>
+                <br>
+                <form action="/delete" method="post">
+                    <input type="hidden" name="itemId" value="<%= newlist[i]._id %>">
+                    <button type="submit" name="button">Delete</button>
+                </form>
+                <form action="/update" method="post">
+                    <!-- <input type="hidden" name="itemToUpdate" value="<%= newlist[i] %>"> -->
+                    <input type="hidden" name="itemIds" value="<%= newlist[i]._id %>">
+                    <input type="text" name="updatedItem" placeholder="New value" required>
+                    <button type="submit" name="button">Update</button>
+                </form>
+        </div>
+        <% } %>
+        <form action="/" method="post">
+
+            <input type="text" name="newItems" id="" placeholder="Enter the new Task" autocomplete="off">
+            <button type="submit" name="button">Add</button>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
+
